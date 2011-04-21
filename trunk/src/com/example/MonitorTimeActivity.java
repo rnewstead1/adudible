@@ -1,6 +1,7 @@
 package com.example;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
@@ -18,8 +19,9 @@ public class MonitorTimeActivity extends Activity {
         public void run() {
             if (System.currentTimeMillis() > endTime) {
                 mTimeLabel.setText("Get out of there");
-            }
-            else {
+                MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.annoying_alarm);
+                mp.start();
+            } else {
                 mTimeLabel.setText("" + (endTime - System.currentTimeMillis()));
                 mHandler.postDelayed(mUpdateTimeTask, 100);
             }
@@ -37,7 +39,7 @@ public class MonitorTimeActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        endTime = System.currentTimeMillis()+ getLengthInMillis();
+        endTime = System.currentTimeMillis() + getLengthInMillis();
         mHandler.postDelayed(mUpdateTimeTask, 100);
     }
 
