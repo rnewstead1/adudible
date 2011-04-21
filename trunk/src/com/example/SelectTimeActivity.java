@@ -104,7 +104,7 @@ public class SelectTimeActivity extends Activity {
         _5mins("5 mins", 300),
         _10mins("10 mins", 600),
         _20mins("20 mins", 1200),
-        _30mins("30 mins", 18000);
+        _30mins("30 mins", 1800);
 
         public final String buttonText;
         public final Integer lengthInSeconds;
