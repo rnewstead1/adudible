@@ -22,7 +22,7 @@ public class MonitorTimeActivity extends Activity {
         public void run() {
             if (System.currentTimeMillis() > endTime) {
                 mTimeLabel.setText("Get out of there");
-
+                started = false;
             } else {
                 long elapsedMillis = endTime - System.currentTimeMillis();
 
@@ -45,11 +45,11 @@ public class MonitorTimeActivity extends Activity {
 
     private Runnable mUpdateProgressTask = new Runnable() {
         public void run() {
-                long elapsedMillis = endTime - System.currentTimeMillis();
+            long elapsedMillis = endTime - System.currentTimeMillis();
 
 
-                progressBar.setProgress(100 * (int) (elapsedMillis / getLengthInMillis()));
-                timerHandler.postDelayed(mUpdateProgressTask, 100);
+            progressBar.setProgress(100 * (int) (elapsedMillis / getLengthInMillis()));
+            timerHandler.postDelayed(mUpdateProgressTask, 100);
         }
     };
     private static ProgressBar progressBar;

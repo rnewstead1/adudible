@@ -15,7 +15,7 @@ import kankan.wheel.widget.WheelView;
 import kankan.wheel.widget.adapters.NumericWheelAdapter;
 
 public class SelectTimeActivity extends Activity {
-    private int customLength = 0;
+    private int customLength;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
