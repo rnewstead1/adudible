@@ -3,6 +3,7 @@ package com.example;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class SelectTimeActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_time);
 
@@ -99,8 +101,8 @@ public class SelectTimeActivity extends Activity {
     }
 
     private enum ButtonValues {
-        _10secs("10 secs", 10),
-        _30secs("30 secs", 30),
+        CupOfTea("Cup of Tea", 180),
+        StandUp("Stand Up", 420),
         _5mins("5 mins", 300),
         _10mins("10 mins", 600),
         _20mins("20 mins", 1200),
