@@ -3,7 +3,6 @@ package com.example;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.widget.TextView;
 
 public class MonitorTimeActivity extends Activity {
@@ -27,10 +26,6 @@ public class MonitorTimeActivity extends Activity {
         }
     };
 
-
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +34,14 @@ public class MonitorTimeActivity extends Activity {
         mTimeLabel = (TextView) findViewById(R.id.timeLabel);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        endTime = System.currentTimeMillis()+ length;
+        endTime = System.currentTimeMillis()+ getLengthInMillis();
         mHandler.postDelayed(mUpdateTimeTask, 100);
+    }
+
+    private Integer getLengthInMillis() {
+        return (Integer) getIntent().getExtras().get("lengthInMillis");
     }
 }
