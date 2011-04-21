@@ -14,7 +14,7 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int button_id=0x7f050000;
+        public static final int gridview=0x7f050000;
         public static final int timeLabel=0x7f050001;
     }
     public static final class layout {
