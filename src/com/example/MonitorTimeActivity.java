@@ -7,11 +7,12 @@ import android.os.Handler;
 import android.widget.TextView;
 
 public class MonitorTimeActivity extends Activity {
+    public static boolean started = false;
 
     private long endTime;
 
-    private TextView mTimeLabel;
-    private Handler mHandler = new Handler();
+    private static TextView mTimeLabel;
+    private static Handler mHandler = new Handler();
 
 
     private Runnable mUpdateTimeTask = new Runnable() {
@@ -41,23 +42,37 @@ public class MonitorTimeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_progress);
-
         mTimeLabel = (TextView) findViewById(R.id.timeLabel);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        endTime = System.currentTimeMillis() + getLengthInMillis();
-        mHandler.postDelayed(mUpdateTimeTask, 100);
 
-        mHandler.postDelayed(new Runnable() {
+        if (!started) {
+            Integer lengthInMillis = getLengthInMillis();
+            endTime = System.currentTimeMillis() + lengthInMillis;
+
+            mHandler.postDelayed(mUpdateTimeTask, 100);
+
+            mHandler.postDelayed(playSound(R.raw.ding), lengthInMillis / 2);
+            mHandler.postDelayed(playSound(R.raw.ding), (int)(lengthInMillis * 0.75));
+            mHandler.postDelayed(playSound(R.raw.ding), (int)(lengthInMillis * 0.9));
+            mHandler.postDelayed(playSound(R.raw.ding), (int)(lengthInMillis * 0.95));
+            mHandler.postDelayed(playSound(R.raw.ding), (int)(lengthInMillis * 0.99));
+            mHandler.postDelayed(playSound(R.raw.annoying_alarm), lengthInMillis);
+
+            started = true;
+        }
+    }
+
+    private Runnable playSound(final int sound) {
+        return new Runnable() {
             public void run() {
-                MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.annoying_alarm);
+                MediaPlayer mp = MediaPlayer.create(getBaseContext(), sound);
                 mp.start();
             }
-        }, getLengthInMillis());
-
+        };
     }
 
     private Integer getLengthInMillis() {
