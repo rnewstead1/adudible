@@ -1,12 +1,11 @@
-package com.example;
+package adudible;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.example.R;
 
 public class MonitorTimeActivity extends Activity {
 
