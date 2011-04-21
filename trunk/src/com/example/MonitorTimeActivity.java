@@ -22,7 +22,8 @@ public class MonitorTimeActivity extends Activity {
         timer.register(getBaseContext(), mTimeLabel, progressBar);
         timer.go(getLengthInMillis());
         progressBar.setProgress(0);
-        mTimeLabel.setOnClickListener(new android.view.View.OnClickListener() {
+        View screen = findViewById(R.id.wholeScreen);
+        screen.setOnClickListener(new android.view.View.OnClickListener() {
             public void onClick(View view) {
                 finish();
             }

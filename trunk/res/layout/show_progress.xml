@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wholeScreen"
               android:orientation="vertical"
               android:layout_gravity="center_horizontal"
               android:layout_width="fill_parent"
@@ -25,4 +26,13 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:max="100"
             />
+
+
+    <TextView
+            android:id="@+id/timeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="Tap screen to finish"
+            android:textSize="20dp"/>
 </LinearLayout>
