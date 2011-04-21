@@ -28,6 +28,9 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
   <component name="IdProvider" IDEtalkID="A011C49B6A53382FA27AE158C96589F3" />
   <component name="InspectionPassRegistrar">
     <option name="LOAD_NEW_PROBLEMS" value="true" />
@@ -57,8 +60,14 @@
   <component name="ProjectKey">
     <option name="state" value="project://default" />
   </component>
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 (1)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="TestDoxConfiguration">
     <option name="createTestIfMissing" value="true" />
