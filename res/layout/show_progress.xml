@@ -11,16 +11,17 @@
             android:id="@+id/timeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="50dp"
+            android:textSize="40dp"/>
 
 
     <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="99dp"
+            android:paddingTop="50dp"
             style="?android:attr/progressBarStyleHorizontal"
             android:max="100"
             />
-
-
 </LinearLayout>
