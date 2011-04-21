@@ -7,8 +7,7 @@ import android.os.Handler;
 import android.widget.TextView;
 
 public class MonitorTimeActivity extends Activity {
-    
-    private long length = 5 * 1000;
+
     private long endTime;
 
     private TextView mTimeLabel;
@@ -19,10 +18,20 @@ public class MonitorTimeActivity extends Activity {
         public void run() {
             if (System.currentTimeMillis() > endTime) {
                 mTimeLabel.setText("Get out of there");
-                MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.annoying_alarm);
-                mp.start();
+
             } else {
-                mTimeLabel.setText("" + (endTime - System.currentTimeMillis()));
+                long millis = endTime - System.currentTimeMillis();
+
+                int seconds = (int) (millis / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+
+                if (seconds < 10) {
+                    mTimeLabel.setText("" + minutes + ":0" + seconds);
+                } else {
+                    mTimeLabel.setText("" + minutes + ":" + seconds);
+                }
+
                 mHandler.postDelayed(mUpdateTimeTask, 100);
             }
         }
@@ -41,6 +50,14 @@ public class MonitorTimeActivity extends Activity {
         super.onStart();
         endTime = System.currentTimeMillis() + getLengthInMillis();
         mHandler.postDelayed(mUpdateTimeTask, 100);
+
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.annoying_alarm);
+                mp.start();
+            }
+        }, getLengthInMillis());
+
     }
 
     private Integer getLengthInMillis() {
