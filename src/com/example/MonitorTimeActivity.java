@@ -32,16 +32,16 @@ public class MonitorTimeActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_progress);
 
-//        mTimeLabel = (TextView) findViewById(R.id.timeLabel);
-//        findViewById(R.id.startButton).setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                if (mStartTime == 0L) {
-//                    mStartTime = System.currentTimeMillis();
-//                    //mHandler.removeCallbacks(mUpdateTimeTask);
-//                    mHandler.postDelayed(mUpdateTimeTask, 100);
-//                }
-//            }
-//        });
+        mTimeLabel = (TextView) findViewById(R.id.timeLabel);
+        findViewById(R.id.startButton).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (mStartTime == 0L) {
+                    mStartTime = System.currentTimeMillis();
+                    //mHandler.removeCallbacks(mUpdateTimeTask);
+                    mHandler.postDelayed(mUpdateTimeTask, 100);
+                }
+            }
+        });
 
     }
 }
