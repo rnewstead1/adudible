@@ -16,6 +16,10 @@ public class Timer {
     private TextView mTimeLabel;
     private ProgressBar progressBar;
     private int lengthInMillis;
+    private Runnable dingTask;
+    private Runnable annoyingTask;
+    private MediaPlayer dingPlayer;
+    private MediaPlayer annoyingPlayer;
 
     public synchronized static Timer getTimer() {
         if (timer == null) {
@@ -33,12 +37,17 @@ public class Timer {
 
             timerHandler.postDelayed(mUpdateTimeTask, 100);
 
-            timerHandler.postDelayed(playSound(R.raw.ding), lengthInMillis / 2);
-            timerHandler.postDelayed(playSound(R.raw.ding), (int) (lengthInMillis * 0.75));
-            timerHandler.postDelayed(playSound(R.raw.ding), (int) (lengthInMillis * 0.9));
-            timerHandler.postDelayed(playSound(R.raw.ding), (int) (lengthInMillis * 0.95));
-            timerHandler.postDelayed(playSound(R.raw.ding), (int) (lengthInMillis * 0.99));
-            timerHandler.postDelayed(playSound(R.raw.annoying_alarm), lengthInMillis);
+            dingPlayer = MediaPlayer.create(context, R.raw.ding);
+            annoyingPlayer = MediaPlayer.create(context, R.raw.annoying_alarm);
+            dingTask = playSound(dingPlayer);
+            annoyingTask = playSound(annoyingPlayer);
+
+            timerHandler.postDelayed(dingTask, lengthInMillis / 2);
+            timerHandler.postDelayed(dingTask, (int) (lengthInMillis * 0.75));
+            timerHandler.postDelayed(dingTask, (int) (lengthInMillis * 0.9));
+            timerHandler.postDelayed(dingTask, (int) (lengthInMillis * 0.95));
+            timerHandler.postDelayed(dingTask, (int) (lengthInMillis * 0.99));
+            timerHandler.postDelayed(annoyingTask, lengthInMillis);
 
 
             started = true;
@@ -75,13 +84,22 @@ public class Timer {
     };
 
     public void reset() {
+        timerHandler.removeCallbacks(annoyingTask);
+        timerHandler.removeCallbacks(dingTask);
+        timerHandler.removeCallbacks(mUpdateTimeTask);
+        if(dingPlayer.isPlaying()) {
+            dingPlayer.stop();
+        }
+        if(annoyingPlayer.isPlaying()) {
+            annoyingPlayer.stop();
+        }
         started = false;
     }
 
-    private Runnable playSound(final int sound) {
+    private Runnable playSound(final MediaPlayer mediaPlayer) {
         return new Runnable() {
             public void run() {
-                MediaPlayer mp = MediaPlayer.create(context, sound);
+                MediaPlayer mp = mediaPlayer;
                 mp.start();
             }
         };
