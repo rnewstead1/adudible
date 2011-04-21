@@ -11,7 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int alarm_clock_ringing_trans=0x7f020000;
+        public static final int alarm_clock=0x7f020000;
         public static final int icon=0x7f020001;
         public static final int wheel_bg=0x7f020002;
         public static final int wheel_val=0x7f020003;
