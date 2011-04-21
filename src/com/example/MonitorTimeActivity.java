@@ -15,8 +15,6 @@ public class MonitorTimeActivity extends Activity {
 
     private static TextView mTimeLabel;
     private static Handler timerHandler = new Handler();
-    private static Handler progressHandler = new Handler();
-
 
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
@@ -36,22 +34,12 @@ public class MonitorTimeActivity extends Activity {
                     mTimeLabel.setText("" + minutes + ":" + seconds);
                 }
 
-                progressBar.setProgress(100 * (int) (elapsedMillis / getLengthInMillis()));
+                progressBar.setProgress(progressBar.getMax() - (int) ((double) progressBar.getMax() * ((double) elapsedMillis / (double) getLengthInMillis())));
                 timerHandler.postDelayed(mUpdateTimeTask, 100);
             }
         }
     };
 
-
-    private Runnable mUpdateProgressTask = new Runnable() {
-        public void run() {
-            long elapsedMillis = endTime - System.currentTimeMillis();
-
-
-            progressBar.setProgress(100 * (int) (elapsedMillis / getLengthInMillis()));
-            timerHandler.postDelayed(mUpdateProgressTask, 100);
-        }
-    };
     private static ProgressBar progressBar;
 
     @Override
@@ -60,7 +48,6 @@ public class MonitorTimeActivity extends Activity {
         setContentView(R.layout.show_progress);
         mTimeLabel = (TextView) findViewById(R.id.timeLabel);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-//        progressBar.setVisibility(ProgressBar.VISIBLE);
         progressBar.setProgress(0);
         mTimeLabel.setOnClickListener(new android.view.View.OnClickListener() {
             public void onClick(View view) {
@@ -83,7 +70,6 @@ public class MonitorTimeActivity extends Activity {
             endTime = System.currentTimeMillis() + lengthInMillis;
 
             timerHandler.postDelayed(mUpdateTimeTask, 100);
-            progressHandler.postDelayed(mUpdateProgressTask, 100);
 
             timerHandler.postDelayed(playSound(R.raw.ding), lengthInMillis / 2);
             timerHandler.postDelayed(playSound(R.raw.ding), (int) (lengthInMillis * 0.75));
