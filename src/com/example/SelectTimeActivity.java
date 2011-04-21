@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
+import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.NumericWheelAdapter;
 
 public class SelectTimeActivity extends Activity {
-    /**
-     * Called when the activity is first created.
-     */
+    private int customLength = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +24,45 @@ public class SelectTimeActivity extends Activity {
 
         GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(new MyAdapter(this));
+
+        TextView introText = (TextView) findViewById(R.id.introText);
+        introText.setText("Select  a preset length of time:");
+
+
+        TextView wheelText = (TextView) findViewById(R.id.wheelText);
+        wheelText.setText("Select your own length of time:");
+
+        final WheelView wheelMins = (WheelView) findViewById(R.id.wheel_mins);
+        wheelMins.setViewAdapter(new NumericWheelAdapter(this, 0, 59, "%02d"));
+        wheelMins.setCyclic(false);
+
+        final WheelView wheelSecs = (WheelView) findViewById(R.id.wheel_secs);
+        wheelSecs.setViewAdapter(new NumericWheelAdapter(this, 0, 59, "%02d"));
+        wheelSecs.setCyclic(false);
+
+        OnWheelChangedListener wheelListener = new OnWheelChangedListener() {
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+                customLength = wheelMins.getCurrentItem() * 1000 * 60
+                        + wheelSecs.getCurrentItem() * 1000;
+            }
+        };
+
+        wheelMins.addChangingListener(wheelListener);
+        wheelSecs.addChangingListener(wheelListener);
+
+        Button customLengthButton = (Button) findViewById(R.id.customLengthButton);
+        customLengthButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                submitLength(customLength);
+            }
+        });
     }
 
+    private void submitLength(int lengthInMillis) {
+        Intent intent = new Intent(SelectTimeActivity.this, MonitorTimeActivity.class);
+        intent.putExtra("lengthInMillis", lengthInMillis);
+        startActivity(intent);
+    }
 
     private class MyAdapter extends BaseAdapter {
         private final Context context;
@@ -49,13 +89,13 @@ public class SelectTimeActivity extends Activity {
             button.setText(buttonValues.buttonText);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    Intent intent = new Intent(SelectTimeActivity.this, MonitorTimeActivity.class);
-                    intent.putExtra("lengthInMillis", buttonValues.lengthInMillis());
-                    startActivity(intent);
+                    int lengthInMillis = buttonValues.lengthInMillis();
+                    submitLength(lengthInMillis);
                 }
             });
             return button;
         }
+
     }
 
     private enum ButtonValues {
