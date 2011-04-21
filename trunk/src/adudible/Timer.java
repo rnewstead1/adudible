@@ -1,10 +1,11 @@
-package com.example;
+package adudible;
 
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.example.R;
 
 public class Timer {
     private static Timer timer;
