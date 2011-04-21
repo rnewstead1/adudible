@@ -58,9 +58,9 @@ public class SelectTimeActivity extends Activity {
         }
     }
 
-
-
-    private enum ButtonValues{
+    private enum ButtonValues {
+        _10secs("10 secs", 10),
+        _30secs("30 secs", 30),
         _5mins("5 mins", 300),
         _10mins("10 mins", 600),
         _20mins("20 mins", 1200),
@@ -69,7 +69,7 @@ public class SelectTimeActivity extends Activity {
         public final String buttonText;
         public final Integer lengthInSeconds;
 
-        private ButtonValues(String buttonText, Integer lengthInSeconds){
+        private ButtonValues(String buttonText, Integer lengthInSeconds) {
             this.buttonText = buttonText;
             this.lengthInSeconds = lengthInSeconds;
         }
